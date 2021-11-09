@@ -18,6 +18,9 @@ app.use(express.urlencoded({ extended: true }))
 //設定 method-override
 app.use(methodOverride('_method'))
 
+//設定靜態檔案路徑 /upload
+app.use('/upload', express.static(__dirname + '/upload'))
+
 //設定 seesion, connect-flash
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }))
 app.use(flash())

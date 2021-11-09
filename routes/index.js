@@ -1,6 +1,9 @@
 const restController = require('../controllers/restController')
 const adminController = require('../controllers/adminController')
 const userController = require('../controllers/userController')
+//加入 multer
+const multer = require('multer')
+const upload = multer({ dest: 'temp/' })
 
 module.exports = (app, passport) => {
   //加入身分驗證
@@ -33,14 +36,14 @@ module.exports = (app, passport) => {
 
   //設定新增餐廳表單路由
   app.get('/admin/restaurants/create', authenticatedAdmin, adminController.createRestaurant)
-  app.post('/admin/restaurants', authenticatedAdmin, adminController.postRestaurant)
+  app.post('/admin/restaurants', authenticatedAdmin, upload.single('image'), adminController.postRestaurant)
 
   //設定 show 餐廳路由
   app.get('/admin/restaurants/:id', authenticatedAdmin, adminController.getRestaurant)
 
   //設定 edit 餐廳路由
   app.get('/admin/restaurants/:id/edit', authenticatedAdmin, adminController.editRestaurant)
-  app.put('/admin/restaurants/:id', authenticatedAdmin, adminController.putRestaurant)
+  app.put('/admin/restaurants/:id', authenticatedAdmin, upload.single('image'), adminController.putRestaurant)
 
   //設定刪除餐廳路由
   app.delete('/admin/restaurants/:id', authenticatedAdmin, adminController.deleteRestaurant)
