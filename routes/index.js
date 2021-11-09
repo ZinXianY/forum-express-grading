@@ -2,7 +2,7 @@ const restController = require('../controllers/restController')
 const adminController = require('../controllers/adminController')
 const userController = require('../controllers/userController')
 
-module.exports = app => {
+module.exports = (app, passport) => {
   //使用者如訪問首頁就會導向 / restaurants 頁面
   app.get('/', (req, res) => res.redirect('/restaurants'))
   //在 /restaurant 底下交給 restController.getRestaurants 處理
@@ -14,4 +14,8 @@ module.exports = app => {
   //設定註冊路由
   app.get('/signup', userController.signUpPage)
   app.post('/signup', userController.signUp)
+  //設定登入和登出路由
+  app.get('/signin', userController.signInPage)
+  app.post('/signin', passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }), userController.signIn)
+  app.get('/logout', userController.logout)
 }
