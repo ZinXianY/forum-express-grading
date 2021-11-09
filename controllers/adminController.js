@@ -28,6 +28,12 @@ const adminController = {
         req.flash('success_messages', 'restaurant was successfully created')
         res.redirect('/admin/restaurants')
       })
+  },
+  //新增瀏覽餐廳資料
+  getRestaurant: (req, res) => {
+    return Restaurant.findByPk(req.params.id, { raw: true }).then(restaurant => {
+      return res.render('admin/restaurant', { restaurant: restaurant })
+    })
   }
 }
 
