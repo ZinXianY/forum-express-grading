@@ -1,5 +1,6 @@
 const express = require('express')
 const handlebars = require('express-handlebars')
+const methodOverride = require('method-override')
 const db = require('./models') //引入資料庫
 const flash = require('connect-flash')
 const session = require('express-session')
@@ -13,6 +14,9 @@ app.set('view engine', 'handlebars')
 
 //設定 body-parser
 app.use(express.urlencoded({ extended: true }))
+
+//設定 method-override
+app.use(methodOverride('_method'))
 
 //設定 seesion, connect-flash
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }))
