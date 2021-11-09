@@ -1,5 +1,6 @@
 const restController = require('../controllers/restController')
 const adminController = require('../controllers/adminController')
+const userController = require('../controllers/userController')
 
 module.exports = app => {
   //使用者如訪問首頁就會導向 / restaurants 頁面
@@ -10,4 +11,7 @@ module.exports = app => {
   app.get('/admin', (req, res) => res.redirect('/admin/restaurants'))
   //在 /admin/restaurants 底下交給 adminControlles.getRestaurants 處理
   app.get('/admin/restaurants', adminController.getRestaurants)
+  //設定註冊路由
+  app.get('/signup', userController.signUpPage)
+  app.post('/signup', userController.signUp)
 }
