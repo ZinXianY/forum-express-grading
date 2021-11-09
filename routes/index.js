@@ -38,6 +38,10 @@ module.exports = (app, passport) => {
   //設定 show 餐廳路由
   app.get('/admin/restaurants/:id', authenticatedAdmin, adminController.getRestaurant)
 
+  //設定 edit 餐廳路由
+  app.get('/admin/restaurants/:id/edit', authenticatedAdmin, adminController.editRestaurant)
+  app.put('/admin/restaurants/:id', authenticatedAdmin, adminController.putRestaurant)
+
   //設定註冊路由
   app.get('/signup', userController.signUpPage)
   app.post('/signup', userController.signUp)
