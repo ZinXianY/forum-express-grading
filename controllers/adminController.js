@@ -1,6 +1,6 @@
 //設定上傳圖片功能
 const imgur = require('imgur-node-api')
-const IMGUR_CLIENT_ID = '6b426ec090f84a6'
+const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 
 const fs = require('fs')
 const db = require('../models')
