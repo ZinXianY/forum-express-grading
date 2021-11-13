@@ -53,8 +53,15 @@ module.exports = (app, passport) => {
   //設定註冊路由
   app.get('/signup', userController.signUpPage)
   app.post('/signup', userController.signUp)
+
   //設定登入和登出路由
   app.get('/signin', userController.signInPage)
   app.post('/signin', passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }), userController.signIn)
+
+  //設定使用者權限路由
+  app.get('/admin/users', authenticatedAdmin, adminController.getUsers)
+  app.put('/admin/users/:id/toggleAdmin', authenticatedAdmin, adminController.toggleAdmin)
+
+  //設定登出路由
   app.get('/logout', userController.logout)
 }
