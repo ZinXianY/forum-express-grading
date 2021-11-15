@@ -15,7 +15,9 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 //設定樣板引擎
-app.engine('handlebars', handlebars())
+app.engine('handlebars', handlebars({
+  helpers: require('./config/handlebars-helpers')
+}))
 app.set('view engine', 'handlebars')
 
 //設定 body-parser
