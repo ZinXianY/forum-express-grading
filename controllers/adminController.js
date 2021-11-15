@@ -16,13 +16,18 @@ const adminController = {
       nest: true,
       include: [Category]
     }).then(restaurants => {
-      console.log(restaurants)
       return res.render('admin/restaurants', { restaurants: restaurants })
     })
   },
   //新增餐廳表單
   createRestaurant: (req, res) => {
-    return res.render('admin/create')
+    //新增 Category 下拉式選單
+    Category.findAll({
+      raw: true,
+      nest: true
+    }).then(categories => {
+      return res.render('admin/create', { categories: categories })
+    })
   },
   //新增增加餐廳及上傳圖片功能
   postRestaurant: (req, res) => {
@@ -41,7 +46,8 @@ const adminController = {
           address: req.body.address,
           opening_hours: req.body.opening_hours,
           description: req.body.description,
-          image: file ? img.data.link : null
+          image: file ? img.data.link : null,
+          CategoryId: req.body.categoryId
         }).then(restaurant => {
           req.flash('success_messages', 'restaurant was successfully created')
           res.redirect('/admin/restaurants')
@@ -54,7 +60,8 @@ const adminController = {
         address: req.body.address,
         opening_hours: req.body.opening_hours,
         description: req.body.description,
-        image: null
+        image: null,
+        CategoryId: req.body.categoryId
       })
         .then(restaurant => {
           req.flash('success_messages', 'restaurant was successfully created')
@@ -72,8 +79,16 @@ const adminController = {
   },
   //新增修改餐廳資料
   editRestaurant: (req, res) => {
-    return Restaurant.findByPk(req.params.id, { raw: true }).then(restaurant => {
-      return res.render('admin/create', { restaurant: restaurant })
+    Category.findAll({
+      raw: true,
+      nest: true
+    }).then(categories => {
+      return Restaurant.findByPk(req.params.id).then(restaurant => {
+        return res.render('admin/create', {
+          categories: categories,
+          restaurant: restaurant.toJSON()
+        })
+      })
     })
   },
   //新增修改餐廳及圖片功能
@@ -95,7 +110,8 @@ const adminController = {
               address: req.body.address,
               opening_hours: req.body.opening_hours,
               description: req.body.description,
-              image: file ? img.data.link : restaurant.image
+              image: file ? img.data.link : restaurant.image,
+              CategoryId: req.body.categoryId
             }).then(restaurant => {
               req.flash('success_messages', 'restaurant was successfully to update')
               res.redirect('/admin/restaurants')
@@ -111,7 +127,8 @@ const adminController = {
             address: req.body.address,
             opening_hours: req.body.opening_hours,
             description: req.body.description,
-            image: restaurant.image
+            image: restaurant.image,
+            CategoryId: req.body.categoryId
           })
             .then(restaurant => {
               req.flash('success_messages', 'restaurant was successfully to update')
