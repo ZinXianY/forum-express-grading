@@ -51,8 +51,11 @@ module.exports = (app, passport) => {
   //設定刪除餐廳路由
   app.delete('/admin/restaurants/:id', authenticatedAdmin, adminController.deleteRestaurant)
 
-  //設定 category 路由
+  //設定瀏覽 category 路由
   app.get('/admin/categories', authenticatedAdmin, categoryController.getCategories)
+
+  //設定新增 category 路由
+  app.post('/admin/categories', authenticatedAdmin, categoryController.postCategory)
 
   //設定註冊路由
   app.get('/signup', userController.signUpPage)
