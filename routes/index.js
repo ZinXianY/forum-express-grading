@@ -2,6 +2,7 @@ const helpers = require('../_helpers')
 const restController = require('../controllers/restController')
 const adminController = require('../controllers/adminController')
 const userController = require('../controllers/userController')
+const categoryController = require('../controllers/categoryController')
 
 //加入 multer
 const multer = require('multer')
@@ -49,6 +50,9 @@ module.exports = (app, passport) => {
 
   //設定刪除餐廳路由
   app.delete('/admin/restaurants/:id', authenticatedAdmin, adminController.deleteRestaurant)
+
+  //設定 category 路由
+  app.get('/admin/categories', authenticatedAdmin, categoryController.getCategories)
 
   //設定註冊路由
   app.get('/signup', userController.signUpPage)
