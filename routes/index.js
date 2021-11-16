@@ -61,6 +61,9 @@ module.exports = (app, passport) => {
   app.get('/admin/categories/:id', authenticatedAdmin, categoryController.getCategories)
   app.put('/admin/categories/:id', authenticatedAdmin, categoryController.putCategory)
 
+  //設定刪除 category 路由
+  app.delete('/admin/categories/:id', authenticatedAdmin, categoryController.deleteCategory)
+
   //設定註冊路由
   app.get('/signup', userController.signUpPage)
   app.post('/signup', userController.signUp)
