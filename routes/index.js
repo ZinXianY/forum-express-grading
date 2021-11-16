@@ -6,6 +6,7 @@ const categoryController = require('../controllers/categoryController')
 
 //加入 multer
 const multer = require('multer')
+const { authenticate } = require('passport')
 const upload = multer({ dest: 'temp/' })
 
 module.exports = (app, passport) => {
@@ -28,8 +29,11 @@ module.exports = (app, passport) => {
   //使用者如訪問首頁就會導向 / restaurants 頁面
   app.get('/', authenticated, (req, res) => res.redirect('/restaurants'))
 
-  //在 /restaurant 底下交給 restController.getRestaurants 處理
+  //設定前台瀏覽餐廳路由
   app.get('/restaurants', authenticated, restController.getRestaurants)
+
+  //設定前台瀏覽個別餐廳路由
+  app.get('/restaurants/:id', authenticated, restController.getRestaurant)
 
   //連到 /admin 頁面轉到 /admin/restaurants
   app.get('/admin', authenticatedAdmin, (req, res) => res.redirect('/admin/restaurants'))
