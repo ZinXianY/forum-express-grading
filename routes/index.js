@@ -3,6 +3,7 @@ const restController = require('../controllers/restController')
 const adminController = require('../controllers/adminController')
 const userController = require('../controllers/userController')
 const categoryController = require('../controllers/categoryController')
+const commentController = require('../controllers/commentController')
 
 //加入 multer
 const multer = require('multer')
@@ -34,6 +35,9 @@ module.exports = (app, passport) => {
 
   //設定前台瀏覽個別餐廳路由
   app.get('/restaurants/:id', authenticated, restController.getRestaurant)
+
+  //設定評論餐廳路由
+  app.post('/comments', authenticated, commentController.postComment)
 
   //連到 /admin 頁面轉到 /admin/restaurants
   app.get('/admin', authenticatedAdmin, (req, res) => res.redirect('/admin/restaurants'))
