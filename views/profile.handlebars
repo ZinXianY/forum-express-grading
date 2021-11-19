@@ -3,7 +3,7 @@
     <img class="img-responsive center-block" src="{{user.image}}" style="width: 250px;margin-bottom: 25px;">
   </div>
   <div class="col-md-8">
-    <p>{{user.name}}</p>
+    <h3>{{user.name}}</h3>
     <p>{{user.email}}</p>
     <br />
     <br />
@@ -18,7 +18,7 @@
 <div class="card mt-5">
   <p class="card-header">已評論餐廳</p>
   <div class="card-body">
-    {{#each user.Comments}}
+    {{#each comments}}
     <a class="m-2" href="/restaurants/{{this.RestaurantId}}"><img class="img-responsive center-block"
         src="{{this.Restaurant.image}}" alt="profile-image" style="width: 100px"></a>
     {{/each}}
