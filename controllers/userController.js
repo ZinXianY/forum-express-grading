@@ -5,6 +5,8 @@ const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 const bcrypt = require('bcryptjs')
 const db = require('../models')
 const User = db.User
+const Restaurant = db.Restaurant
+const Comment = db.Comment
 
 const userController = {
   signUpPage: (req, res) => {
@@ -50,7 +52,9 @@ const userController = {
 
   //User profile
   getUser: (req, res) => {
-    return User.findByPk(req.params.id)
+    return User.findByPk(req.params.id, {
+      include: { model: Comment, include: [Restaurant] }
+    })
       .then(user => {
         res.render('profile', {
           user: user.toJSON()
