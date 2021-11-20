@@ -39,6 +39,9 @@ module.exports = (app, passport) => {
   //設定前台瀏覽個別餐廳路由
   app.get('/restaurants/:id', authenticated, restController.getRestaurant)
 
+  //設定 Dashboard 頁面路由
+  app.get('/restaurants/:id/dashboard', authenticated, restController.getDashBoard)
+
   //設定評論餐廳路由
   app.post('/comments', authenticated, commentController.postComment)
 

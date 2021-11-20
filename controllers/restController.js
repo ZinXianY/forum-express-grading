@@ -90,6 +90,19 @@ const restController = {
         comments: comments
       })
     })
+  },
+  //增加 Dashboard 活動數據
+  getDashBoard: (req, res) => {
+    return Restaurant.findByPk(req.params.id, {
+      include: [
+        Category,
+        { model: Comment, include: [User] }
+      ]
+    }).then(restaurant => {
+      return res.render('dashboard', {
+        restaurant: restaurant.toJSON()
+      })
+    })
   }
 }
 
