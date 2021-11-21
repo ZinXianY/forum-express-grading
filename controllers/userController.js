@@ -9,6 +9,8 @@ const User = db.User
 const Restaurant = db.Restaurant
 const Comment = db.Comment
 const Favorite = db.Favorite
+const Like = db.Like
+const helpers = require('../_helpers')
 
 const userController = {
   signUpPage: (req, res) => {
@@ -138,6 +140,26 @@ const userController = {
         .then(restaurant => {
           return res.redirect('back')
         })
+    })
+  },
+
+  //加入 Like/unLike 功能
+  addLike: (req, res) => {
+    return Like.create({
+      UserId: helpers.getUser(req).id,
+      RestaurantId: req.params.restaurantId
+    }).then(restaurant => {
+      return res.redirect('back')
+    })
+  },
+  removeLike: (req, res) => {
+    return Like.destroy({
+      where: {
+        UserId: helpers.getUser(req).id,
+        RestaurantId: req.params.restaurantId
+      }
+    }).then(restaurant => {
+      return res.redirect('back')
     })
   }
 }
