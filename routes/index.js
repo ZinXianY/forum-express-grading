@@ -48,6 +48,9 @@ module.exports = (app, passport) => {
   //設定管理員餐廳評論刪除路由
   app.delete('/comments/:id', authenticatedAdmin, commentController.deleteComment)
 
+  //設定美食達人頁面路由
+  app.get('/users/top', authenticated, userController.getTopUser)
+
   //設定使用者個人資料瀏覽及編輯路由
   app.get('/users/:id', authenticated, userController.getUser)
   app.get('/users/:id/edit', authenticated, userController.editUser)

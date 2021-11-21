@@ -161,6 +161,26 @@ const userController = {
     }).then(restaurant => {
       return res.redirect('back')
     })
+  },
+
+  //新增美食達人功能
+  getTopUser: (req, res) => {
+    return User.findAll({
+      include: [
+        { model: User, as: 'Followers' }
+      ]
+    }).then(users => {
+      users = users.map(user => ({
+        ...user.dataValues,
+        //計算追蹤者人數
+        FollowerCount: user.Followers.length,
+        //判斷登入使用者是否已追蹤該 user 物件
+        isFollowed: req.user.Followings.map(d => d.id).includes(user.id)
+      }))
+      //依追蹤者人數排序清單
+      users = users.sort((a, b) => b.FollowerCount - a.FollowerCount)
+      return res.render('topUser', { users: users })
+    })
   }
 }
 
