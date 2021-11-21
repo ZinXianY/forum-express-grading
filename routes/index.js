@@ -36,6 +36,9 @@ module.exports = (app, passport) => {
   //設定最新動態路由
   app.get('/restaurants/feeds', authenticated, restController.getFeeds)
 
+  //設定 TOP 10人氣餐廳路由
+  app.get('/restaurants/top', authenticated, restController.getTopRestaurant)
+
   //設定前台瀏覽個別餐廳路由
   app.get('/restaurants/:id', authenticated, restController.getRestaurant)
 

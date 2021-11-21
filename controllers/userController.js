@@ -126,21 +126,18 @@ const userController = {
     return Favorite.create({
       UserId: req.user.id,
       RestaurantId: req.params.restaurantId
-    }).then(restaurant => {
+    }).then(() => {
       return res.redirect('back')
     })
   },
   removeFavorite: (req, res) => {
-    return Favorite.findOne({
+    return Favorite.destroy({
       where: {
         UserId: req.user.id,
         RestaurantId: req.params.restaurantId
       }
-    }).then(favorite => {
-      favorite.destroy()
-        .then(restaurant => {
-          return res.redirect('back')
-        })
+    }).then(restaurant => {
+      return res.redirect('back')
     })
   },
 
