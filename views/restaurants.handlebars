@@ -35,13 +35,15 @@
         <span class="badge badge-secondary">{{this.categoryName}}</span>
         <p class="card-text">{{this.description}}</p>
 
+        {{#if this.isFavorited }}
         <form action="/favorite/{{this.id}}?_method=DELETE" method="POST">
           <button class="btn btn-danger" type="submit">移除最愛</button>
         </form>
-
+        {{else}}
         <form action="/favorite/{{this.id}}" method="POST">
           <button class="btn btn-primary" type="submit">加到最愛</button>
         </form>
+        {{/if}}
 
       </div>
     </div>
