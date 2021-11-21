@@ -126,7 +126,7 @@ const userController = {
     return Favorite.create({
       UserId: req.user.id,
       RestaurantId: req.params.restaurantId
-    }).then(() => {
+    }).then(restaurant => {
       return res.redirect('back')
     })
   },
@@ -136,7 +136,7 @@ const userController = {
         UserId: req.user.id,
         RestaurantId: req.params.restaurantId
       }
-    }).then(restaurant => {
+    }).then(() => {
       return res.redirect('back')
     })
   },
