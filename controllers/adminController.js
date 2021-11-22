@@ -9,14 +9,13 @@ const Category = db.Category
 
 const User = db.User
 
+//設定 adminService
+const adminService = require('../services/adminService')
+
 const adminController = {
   getRestaurants: (req, res) => {
-    return Restaurant.findAll({
-      raw: true,
-      nest: true,
-      include: [Category]
-    }).then(restaurants => {
-      return res.render('admin/restaurants', { restaurants: restaurants })
+    adminService.getRestaurants(req, res, (data) => {
+      return res.render('admin/restaurants', data)
     })
   },
   //新增餐廳表單
