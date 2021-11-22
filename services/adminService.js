@@ -4,7 +4,11 @@ const Category = db.Category
 
 const adminService = {
   getRestaurants: (req, res, callback) => {
-    return Restaurant.findAll({ include: [Category] })
+    return Restaurant.findAll({
+      raw: true,
+      nest: true,
+      include: [Category]
+    })
       .then(restaurants => {
         callback({ restaurants: restaurants })
       })
@@ -12,7 +16,7 @@ const adminService = {
   getRestaurant: (req, res, callback) => {
     return Restaurant.findByPk(req.params.id, { include: [Category] })
       .then(restaurant => {
-        callback({ restaurant: restaurant })
+        callback({ restaurant: restaurant.toJSON() })
       })
   }
 }
